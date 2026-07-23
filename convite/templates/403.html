@@ -1,0 +1,5 @@
+{% extends "erro_base.html" %}
+{% block title %}Acesso não permitido · Formatura de Alexandra Klippel{% endblock %}
+{% block eyebrow %}Erro 403{% endblock %}
+{% block titulo %}Acesso não permitido{% endblock %}
+{% block mensagem %}{% if razao_csrf %}Sua sessão expirou por segurança. Atualize a página e tente enviar novamente.{% else %}Você não tem permissão para ver essa página.{% endif %}{% endblock %}

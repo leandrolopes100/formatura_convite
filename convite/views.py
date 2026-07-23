@@ -171,6 +171,10 @@ def criar_recado(request):
     })
 
 
+def falha_csrf(request, reason=''):
+    return render(request, '403.html', {'razao_csrf': reason}, status=403)
+
+
 def _notificar_por_email(confirmacao):
     destinatario = settings.EMAIL_DESTINATARIO_CONFIRMACAO
     if not destinatario:

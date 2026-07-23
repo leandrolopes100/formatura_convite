@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Erro · Formatura de Alexandra Klippel{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700&family=Libre+Franklin:wght@300..600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100svh;
+    padding: 2rem 1.5rem;
+    background: radial-gradient(circle at 50% -10%, rgba(13, 58, 43, 0.35), transparent 55%), #0d1210;
+    color: #f6f2e8;
+    font-family: 'Libre Franklin', -apple-system, BlinkMacSystemFont, sans-serif;
+    text-align: center;
+  }
+  main { max-width: 30rem; }
+  svg { width: 46px; height: auto; margin: 0 auto 1.5rem; display: block; color: rgba(246, 242, 232, 0.72); opacity: 0.65; }
+  .eyebrow {
+    font-family: 'IBM Plex Mono', 'Courier New', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #f0c274;
+    margin: 0 0 1rem;
+  }
+  h1 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(1.7rem, 5vw, 2.4rem);
+    line-height: 1.15;
+    margin: 0 0 0.9rem;
+  }
+  p.mensagem {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(246, 242, 232, 0.72);
+    margin: 0 0 2rem;
+  }
+  a.voltar {
+    display: inline-block;
+    padding: 0.85rem 1.75rem;
+    border: 1px solid rgba(179, 150, 98, 0.4);
+    border-radius: 2px;
+    color: #f0c274;
+    font-family: 'IBM Plex Mono', 'Courier New', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+  a.voltar:hover { background: rgba(179, 150, 98, 0.12); }
+</style>
+</head>
+<body>
+<main>
+  <svg viewBox="0 0 200 240" aria-hidden="true" fill="none">
+    <path fill="currentColor" opacity="0.5" d="M100,18 C114,40 122,58 110,72 C101,83 87,76 87,62 C87,48 93,32 100,18 Z"/>
+    <path stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M100,72 L100,92" />
+    <path stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M62,112 C62,84 138,84 138,112" />
+    <path stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M42,140 C42,108 75,92 100,92 C125,92 158,108 158,140 C158,170 125,188 100,188 C75,188 42,170 42,140 Z" />
+    <path stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M78,188 L122,188 L114,210 L86,210 Z" />
+    <path stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M66,212 L134,212" />
+  </svg>
+  <p class="eyebrow">{% block eyebrow %}Erro{% endblock %}</p>
+  <h1>{% block titulo %}Algo não foi encontrado{% endblock %}</h1>
+  <p class="mensagem">{% block mensagem %}{% endblock %}</p>
+  <a class="voltar" href="/">Voltar para o convite</a>
+</main>
+</body>
+</html>
