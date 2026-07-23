@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Formatura de Alexandra Klippel{% endblock %}</title>
+<meta name="description" content="Convite de formatura — Alexandra Klippel, Bacharel em Enfermagem">
+
+{% block meta_social %}
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:title" content="Formatura de Alexandra Klippel">
+<meta property="og:description" content="Você está convidado(a) para a formatura de Alexandra Klippel — Bacharel em Enfermagem. Confirme sua presença e deixe um recado.">
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'convite/img/og-image.jpg' %}">
+<meta property="og:image:width" content="839">
+<meta property="og:image:height" content="1200">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Formatura de Alexandra Klippel">
+<meta name="twitter:description" content="Você está convidado(a) para a formatura de Alexandra Klippel — Bacharel em Enfermagem. Confirme sua presença e deixe um recado.">
+<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'convite/img/og-image.jpg' %}">
+{% endblock %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Libre+Franklin:ital,wght@0,300..700;1,400..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          noturno: '#0d1210',
+          'noturno-2': '#151b17',
+          'esmeralda-escuro': '#0d3a2b',
+          esmeralda: '#145a41',
+          'esmeralda-luz': '#3a9d7c',
+          chama: '#d9923f',
+          'chama-clara': '#f0c274',
+          'chama-brasa': '#ff8a3d',
+          latao: '#b39662',
+          marfim: '#f3ecd9',
+          'marfim-escuro': '#e8dcc0',
+          tinta: '#17140f',
+          'texto-claro': '#f6f2e8',
+          'texto-suave': 'rgba(246, 242, 232, 0.72)',
+          sucesso: '#8fd6ae',
+          erro: '#e39a9a',
+        },
+        fontFamily: {
+          display: ['Fraunces', 'Georgia', 'serif'],
+          corpo: ['"Libre Franklin"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', '"Courier New"', 'monospace'],
+        },
+        transitionTimingFunction: {
+          facil: 'cubic-bezier(0.22, 1, 0.36, 1)',
+        },
+      },
+    },
+  };
+</script>
+
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<link rel="stylesheet" href="{% static 'convite/css/style.css' %}">
+
+<noscript><style>
+  #ritual { display: none; }
+  .reveal, .hero-linha, .capa__foto-moldura { opacity: 1 !important; transform: none !important; }
+</style></noscript>
+
+{% block extra_head %}{% endblock %}
+</head>
+<body class="m-0 font-corpo bg-marfim text-tinta overflow-x-hidden selection:bg-chama selection:text-tinta">
+
+{% block content %}{% endblock %}
+
+<script src="{% static 'convite/vendor/gsap.min.js' %}"></script>
+<script src="{% static 'convite/vendor/ScrollTrigger.min.js' %}"></script>
+<script src="{% static 'convite/vendor/SplitText.min.js' %}"></script>
+<script src="{% static 'convite/vendor/DrawSVGPlugin.min.js' %}"></script>
+<script src="{% static 'convite/vendor/MotionPathPlugin.min.js' %}"></script>
+<script src="{% static 'convite/vendor/lenis.min.js' %}"></script>
+<script src="{% static 'convite/vendor/confetti.min.js' %}"></script>
+<script src="{% static 'convite/js/main.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

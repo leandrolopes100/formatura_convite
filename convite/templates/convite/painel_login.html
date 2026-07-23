@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel — entrar</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          noturno: '#0b0d0c',
+          'noturno-2': '#121613',
+          'esmeralda-escuro': '#0d3a2b',
+          esmeralda: '#145a41',
+          'esmeralda-luz': '#2a9873',
+          chama: '#e8a54b',
+          'chama-clara': '#f6cd85',
+          'chama-brasa': '#ff8a3d',
+          marfim: '#faf6ec',
+          'marfim-escuro': '#efe6d2',
+          tinta: '#171510',
+          'texto-claro': '#f6f2e8',
+          'texto-suave': 'rgba(246, 242, 232, 0.72)',
+          sucesso: '#8fd6ae',
+          erro: '#e39a9a',
+        },
+        fontFamily: {
+          display: ['"Bricolage Grotesque"', '-apple-system', 'sans-serif'],
+          corpo: ['"Instrument Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', '"Courier New"', 'monospace'],
+        },
+      },
+    },
+  };
+</script>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-noturno text-texto-claro font-corpo px-6">
+
+  <div class="w-full max-w-sm">
+    <p class="font-mono text-[0.7rem] tracking-[0.2em] uppercase text-esmeralda-luz mb-2 text-center">Painel do convite</p>
+    <h1 class="font-display font-semibold text-2xl text-center mb-8">Entrar</h1>
+
+    {% if form.errors %}
+      <p class="mb-5 font-mono text-[0.75rem] text-erro text-center">Usuário ou senha incorretos.</p>
+    {% endif %}
+
+    <form method="post" class="flex flex-col gap-4">
+      {% csrf_token %}
+
+      <div>
+        <label for="{{ form.username.id_for_label }}" class="block font-mono text-[0.7rem] tracking-[0.1em] uppercase text-chama-clara mb-2">Usuário</label>
+        <input type="text" name="username" id="{{ form.username.id_for_label }}" required autofocus
+               class="w-full px-4 py-3 bg-noturno-2 border border-chama-clara/25 rounded text-texto-claro text-[0.95rem] focus:outline-none focus:border-chama">
+      </div>
+
+      <div>
+        <label for="{{ form.password.id_for_label }}" class="block font-mono text-[0.7rem] tracking-[0.1em] uppercase text-chama-clara mb-2">Senha</label>
+        <input type="password" name="password" id="{{ form.password.id_for_label }}" required
+               class="w-full px-4 py-3 bg-noturno-2 border border-chama-clara/25 rounded text-texto-claro text-[0.95rem] focus:outline-none focus:border-chama">
+      </div>
+
+      <input type="hidden" name="next" value="{{ next }}">
+
+      <button type="submit"
+              class="mt-2 px-6 py-3 bg-gradient-to-br from-chama-clara to-chama text-tinta rounded font-display font-semibold uppercase text-[0.85rem] tracking-wide cursor-pointer hover:shadow-[0_10px_30px_rgba(232,165,75,0.3)] transition-shadow">
+        Entrar
+      </button>
+    </form>
+  </div>
+
+</body>
+</html>

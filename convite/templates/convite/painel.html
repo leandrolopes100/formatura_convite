@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel — {{ request.user }}</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          noturno: '#0b0d0c',
+          'noturno-2': '#121613',
+          'esmeralda-escuro': '#0d3a2b',
+          esmeralda: '#145a41',
+          'esmeralda-luz': '#2a9873',
+          chama: '#e8a54b',
+          'chama-clara': '#f6cd85',
+          'chama-brasa': '#ff8a3d',
+          marfim: '#faf6ec',
+          'marfim-escuro': '#efe6d2',
+          tinta: '#171510',
+          'texto-claro': '#f6f2e8',
+          'texto-suave': 'rgba(246, 242, 232, 0.72)',
+          sucesso: '#8fd6ae',
+          erro: '#e39a9a',
+        },
+        fontFamily: {
+          display: ['"Bricolage Grotesque"', '-apple-system', 'sans-serif'],
+          corpo: ['"Instrument Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', '"Courier New"', 'monospace'],
+        },
+      },
+    },
+  };
+</script>
+</head>
+<body class="min-h-screen bg-noturno text-texto-claro font-corpo">
+
+  <div class="max-w-5xl mx-auto px-6 py-10">
+
+    <div class="flex items-center justify-between flex-wrap gap-4 mb-10">
+      <div>
+        <p class="font-mono text-[0.7rem] tracking-[0.2em] uppercase text-esmeralda-luz mb-1">Painel do convite</p>
+        <h1 class="font-display font-semibold text-2xl">Formatura de {{ nome_formanda }}</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="{% url 'convite:exportar_pdf' %}"
+           class="font-mono text-[0.7rem] tracking-[0.1em] uppercase text-tinta bg-gradient-to-br from-chama-clara to-chama rounded px-4 py-2 hover:shadow-[0_10px_30px_rgba(232,165,75,0.3)] transition-shadow cursor-pointer">
+          Exportar PDF
+        </a>
+        <form method="post" action="{% url 'convite:logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="font-mono text-[0.7rem] tracking-[0.1em] uppercase text-texto-suave border border-chama-clara/25 rounded px-4 py-2 hover:border-chama hover:text-chama-clara transition-colors cursor-pointer">
+            Sair
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
+      <div class="border-t-[3px] border-chama bg-white/[0.03] border border-chama-clara/[0.14] rounded-lg p-6">
+        <span class="block font-mono text-[2.2rem] text-chama-clara leading-none">{{ total_confirmados }}</span>
+        <span class="block mt-2 font-mono text-[0.7rem] tracking-[0.15em] uppercase text-texto-suave">Confirmados</span>
+      </div>
+      <div class="bg-white/[0.03] border border-chama-clara/[0.14] rounded-lg p-6">
+        <span class="block font-mono text-[2.2rem] text-erro leading-none">{{ total_recusados }}</span>
+        <span class="block mt-2 font-mono text-[0.7rem] tracking-[0.15em] uppercase text-texto-suave">Não vão</span>
+      </div>
+      <div class="bg-white/[0.03] border border-chama-clara/[0.14] rounded-lg p-6">
+        <span class="block font-mono text-[2.2rem] text-esmeralda-luz leading-none">{{ total_recados }}</span>
+        <span class="block mt-2 font-mono text-[0.7rem] tracking-[0.15em] uppercase text-texto-suave">Recados recebidos</span>
+      </div>
+    </div>
+
+    <section class="mb-12">
+      <h2 class="font-mono text-[0.7rem] tracking-[0.2em] uppercase text-chama-clara mb-4">Confirmados ({{ total_confirmados }})</h2>
+
+      {% if confirmados %}
+        <div class="border border-chama-clara/[0.14] rounded-lg overflow-hidden">
+          <table class="w-full text-left text-sm">
+            <thead>
+              <tr class="bg-white/[0.03] font-mono text-[0.65rem] tracking-[0.1em] uppercase text-texto-suave">
+                <th class="px-4 py-3">Nome</th>
+                <th class="px-4 py-3">Telefone</th>
+                <th class="px-4 py-3">Mensagem</th>
+                <th class="px-4 py-3">Confirmado em</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for c in confirmados %}
+                <tr class="border-t border-chama-clara/[0.1]">
+                  <td class="px-4 py-3 font-medium">{{ c.nome_convidado }}</td>
+                  <td class="px-4 py-3 text-texto-suave">{{ c.telefone|default:"—" }}</td>
+                  <td class="px-4 py-3 text-texto-suave max-w-xs">{{ c.mensagem|default:"—" }}</td>
+                  <td class="px-4 py-3 text-texto-suave/70 whitespace-nowrap">{{ c.criado_em|date:"d/m/Y H:i" }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p class="text-texto-suave/70 text-sm">Ninguém confirmou presença ainda.</p>
+      {% endif %}
+    </section>
+
+    <section>
+      <h2 class="font-mono text-[0.7rem] tracking-[0.2em] uppercase text-texto-suave/70 mb-4">Não vão comparecer ({{ total_recusados }})</h2>
+
+      {% if recusados %}
+        <div class="border border-chama-clara/[0.1] rounded-lg overflow-hidden">
+          <table class="w-full text-left text-sm">
+            <thead>
+              <tr class="bg-white/[0.02] font-mono text-[0.65rem] tracking-[0.1em] uppercase text-texto-suave/60">
+                <th class="px-4 py-3">Nome</th>
+                <th class="px-4 py-3">Respondido em</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for r in recusados %}
+                <tr class="border-t border-chama-clara/[0.08] text-texto-suave/70">
+                  <td class="px-4 py-3">{{ r.nome_convidado }}</td>
+                  <td class="px-4 py-3 whitespace-nowrap">{{ r.criado_em|date:"d/m/Y H:i" }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p class="text-texto-suave/50 text-sm">Ninguém avisou que não vai, até agora.</p>
+      {% endif %}
+    </section>
+
+  </div>
+
+</body>
+</html>
